@@ -22,7 +22,8 @@ public class CustomClickInvalidateView extends View {
 
 	public CustomClickInvalidateView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		// TODO Auto-generated constructor stub
+		mPaint = new Paint();
+		r = new Random();
 	}
 
 	public CustomClickInvalidateView(Context context, AttributeSet attrs,
@@ -41,4 +42,60 @@ public class CustomClickInvalidateView extends View {
 
 		super.onDraw(canvas);
 	}
+
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		// TODO Auto-generated method stub
+
+		setMeasuredDimension(measuredWidth(100), measuredHeight(200));
+
+	}
+
+	private int measuredWidth(int measureSpec) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		int specMode = MeasureSpec.getMode(measureSpec);
+		int specSize = MeasureSpec.getSize(measureSpec);
+
+		if (specMode == MeasureSpec.EXACTLY) {
+			// We were told how big to be
+			result = specSize;
+		} else {
+			// Measure the text
+			result = (int) mPaint.measureText(text) + getPaddingLeft()
+					+ getPaddingRight();
+			if (specMode == MeasureSpec.AT_MOST) {
+				// Respect AT_MOST value if that was what is called for by
+				// measureSpec
+				result = Math.min(result, specSize);// 60,480
+			}
+		}
+
+		return result;
+	}
+
+	private int mAscent;
+
+	private int measuredHeight(int measureSpec) {
+		int result = 0;
+		int specMode = MeasureSpec.getMode(measureSpec);
+		int specSize = MeasureSpec.getSize(measureSpec);
+
+		mAscent = (int) mPaint.ascent();
+		if (specMode == MeasureSpec.EXACTLY) {
+			// We were told how big to be
+			result = specSize;
+		} else {
+			// Measure the text (beware: ascent is a negative number)
+			result = (int) (-mAscent + mPaint.descent()) + getPaddingTop()
+					+ getPaddingBottom();
+			if (specMode == MeasureSpec.AT_MOST) {
+				// Respect AT_MOST value if that was what is called for by
+				// measureSpec
+				result = Math.min(result, specSize);
+			}
+		}
+		return result;
+	}
+
 }
