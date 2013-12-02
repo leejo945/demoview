@@ -31,15 +31,15 @@ public class MainActivity extends Activity {
 	 
 	 //v = new CustomClickInvalidateView(this);
 	    setContentView(R.layout.activity_main);
-     v = (CustomClickInvalidateView) findViewById(R.id.view3);
-	 v.setOnClickListener(new OnClickListener() {
-		
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-	 	  v.postInvalidate();	
-		}
-	});
+//     v = (CustomClickInvalidateView) findViewById(R.id.view3);
+//	 v.setOnClickListener(new OnClickListener() {
+//		
+//		@Override
+//		public void onClick(View v) {
+//			// TODO Auto-generated method stub
+//	 	  v.postInvalidate();	
+//		}
+//	});
 	  
 
 	}
